@@ -174,13 +174,13 @@ while 1:
                         calc += c
                         ord_arr.append(c)
                     sent = recv[-1] # Combine the 2 bytes together
-                    if sent != calc:
-                        print("Checksum failure %d != %d".format( sent , calc))
+                    if sent != ((65536-calc) % 256):
+                        print("Checksum failure {} != {}".format(sent,calc))
                     #print(recv)
                     else:
-                        pm10 = int(recv[2]) * 256 + int(recv[3])
-                        pm25 = int(recv[4]) * 256 + int(recv[5])
-                        print("pm10 =%d" %pm10)
+                        pm10 = int(recv[3]) * 256 + int(recv[4])
+                        pm25 = int(recv[5]) * 256 + int(recv[6])
+                        print("pm10 = {}".format(pm10))
                         break
                 else:
                     print("second char doesn't match %d" %inp)
